@@ -1,0 +1,21 @@
+10
+a 0 2
+b 1.9 0.62
+c 1.18 -1.62
+d -1.18 -1.62
+e -1.9 0.62
+f 0 1
+g 0.95 0.31
+h 0.59 -0.81
+i -0.59 -0.81
+j -0.95 0.31
+a b e f
+b a c g
+c b d h
+d c e i
+e a d j
+f a h i
+g b i j
+h c f j
+i d f g
+j e g h

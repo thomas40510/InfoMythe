@@ -1,0 +1,7 @@
+  This is the official 'Unoffical' Monty Python And The Holy Grail screenplay.
+This file contains the script as it was on March 20 1974, before filming took
+place.  There are many minor differences from what appears here and what
+ended up on the screen.  <I.E. A paraphrased word or two or another
+character used a line... But generally in minor lines like 'LOOK!'>
+This file also contains cut scenes and lines from the film.
+
