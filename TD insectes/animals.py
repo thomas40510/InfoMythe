@@ -7,11 +7,14 @@ class Animal:
     """
     Un animal quelconque
     """
-    def __init__(self, x, y, capacity=20, ecosysteme=Ecosystem):
+
+    def __init__(self, x, y, capacity=20, ecosysteme=Ecosystem, thinkOutLoud=False, cageSize=(30, 20)):
         self._max = capacity
         self._sante = randint(capacity // 2, capacity)
         self.__coords = (x, y)
+        self._boundaries = cageSize
         self.eco = ecosysteme
+        self._sayThoughts = thinkOutLoud
 
     @property
     def coords(self):  # lecture des coordonnées
@@ -19,7 +22,7 @@ class Animal:
 
     @coords.setter
     def coords(self, val):  # écriture des coordonnées
-        maxX, maxY = (30, 20)
+        maxX, maxY = self._boundaries
         x, y = val
         if x < 0:
             x = 0
@@ -30,6 +33,7 @@ class Animal:
         elif y > maxY:
             y = maxY
         self.__coords = (x, y)
+
     pass
 
     @property
@@ -59,12 +63,18 @@ class Animal:
         self.sante -= 1
         if self.x % 5 == 0 and self.y % 5 == 0:
             self.sante = self._max
-            print("Je mange...")
+            self.think("Je mange...")
         elif self.sante <= 0:
-            print("Je meurs de faim !")
+            self.think("Je meurs de faim !")
 
     def bouger(self):
         self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
+
+    def think(self, val: str):
+        if self._sayThoughts:
+            print(val)
+        else:
+            pass
 
     def __str__(self):
         return f"{self.car()} : pos {self.coords} state {self._sante} / {self._max}"
@@ -78,7 +88,8 @@ class Fourmi(Animal):
     """
     Un animal de type fourmi
     """
-    def __init__(self, x, y):
+
+    def __init__(self, x, y, **kwargs):
         super().__init__(x, y, 20)
 
     def car(self):
@@ -115,7 +126,7 @@ class Cigale(Animal):
     """
     Un animal du type des cigale
     """
-    def __init__(self, x, y):
+    def __init__(self, x, y, **kwargs):
         super().__init__(x, y, 20)
         self.sante = 20
 
@@ -126,9 +137,9 @@ class Cigale(Animal):
         x, y = self.coords
         n = randint(0, 3)
         if n == 0:
-            print("Je chante")
+            self.think("Je chante")
         elif n == 1:
-            print("Je danse")
+            self.think("Je danse")
         elif n == 2:
             if x % 5 == 1:
                 newx = x + 1
