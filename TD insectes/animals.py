@@ -9,6 +9,20 @@ class Animal:
     """
 
     def __init__(self, x, y, capacity=20, ecosysteme=Ecosystem, thinkOutLoud=False, cageSize=(30, 20)):
+        """
+        :type x: int
+        :type y: int
+        :type capacity: int
+        :type ecosysteme: Ecosystem
+        :type cageSize: (int, int)
+        :type thinkOutLoud: bool
+        :param x: abscisse de départ
+        :param y: ordonnée de départ
+        :param capacity: santé maximale
+        :param ecosysteme: écosystème de rattachement de l'insecte
+        :param thinkOutLoud: L'insecte dit ce qu'il pense
+        :param cageSize: Taille de la cage (défini par l'écosystème)
+        """
         self._max = capacity
         self._sante = randint(capacity // 2, capacity)
         self.__coords = (x, y)
@@ -71,6 +85,10 @@ class Animal:
         self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
 
     def think(self, val: str):
+        """
+        Pensées de l'insecte. Ne parle que si on lit dans ses pensées.
+        :param val: Contenu de la pensée
+        """
         if self._sayThoughts:
             print(val)
         else:
