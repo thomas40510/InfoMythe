@@ -10,11 +10,16 @@ class Ecosystem(list):
     """
     Constitue un écosystème et le peuple d'insectes
     """
-    def __init__(self, nbins, nbsim, width, height):
+
+    def __init__(self, nbins, nbsim, width, height, nbNour=6):
         super().__init__()
         self.nbtour = nbsim
         self.__xmax = width
         self.__ymax = height
+        if nbNour > width * height:
+            raise ValueError
+        plateau = self.genNour(nbNour)
+        self.__plateau = plateau
         for i in range(nbins):
             if randint(0, 2) == 0:
                 self.append(Fourmi(randint(-10, 42), randint(-10, 42), cageSize=self.dim))
@@ -24,6 +29,27 @@ class Ecosystem(list):
     @property
     def dim(self):
         return self.__xmax, self.__ymax
+
+    def genNour(self, nbNour):
+        x, y = self.dim
+        plateau = x*[y*[0]]
+        for n in range(nbNour):
+            (nourX, nourY) = (randint(0, x-1), randint(0, y-1))
+            while plateau[nourX][nourY] == 1:
+                (nourX, nourY) = (randint(0, x - 1), randint(0, y - 1))
+            plateau[nourX][nourY] = 1
+        return plateau
+
+    def case(self, x, y):
+        return self.__plateau[x][y]
+
+    def vue(self, x, y, r):
+        l = []
+        for (a, b) in self.dim:
+            dist = pow(pow(x-a, 2) + pow(y-b, 2), .5)
+            if dist <= r:
+                l.append([a, b])
+        return l
 
     def unTour(self):
         for animal in self:
@@ -36,18 +62,18 @@ class Ecosystem(list):
         Exécution de la simulation complète
         :param showUpdates: affichage de la grille à chaque étape
         """
-        for t in range(self.nbtour+1):
+        for t in range(self.nbtour + 1):
             self.unTour()
             if showUpdates:
                 print(f"%%% Tour {t} / {self.nbtour} %%%")
                 print(self, end="\r", flush=True)
-                #time.sleep(1)
+                # time.sleep(1)
 
     def enterrer(self):
         """Identifie les cadavres et les enterre
         """
         dead = []
-        for i in range(len(self)-1, -1, -1):
+        for i in range(len(self) - 1, -1, -1):
             if self[i].sante == 0:
                 dead.append(i)
         for j in dead:
