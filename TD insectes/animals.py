@@ -8,7 +8,7 @@ class Animal:
     Un animal quelconque
     """
 
-    def __init__(self, x, y, capacity=20, ecosysteme=Ecosystem, thinkOutLoud=False, cageSize=(30, 20)):
+    def __init__(self, x, y, capacity=20, ecosysteme=None, thinkOutLoud=False, cageSize=(30, 20)):
         """
         :type x: int
         :type y: int
@@ -26,16 +26,24 @@ class Animal:
         self._max = capacity
         self._sante = randint(capacity // 2, capacity)
         self.__coords = (x, y)
-        self._boundaries = cageSize
-        self.eco = ecosysteme
+        if ecosysteme is not None:
+            self._boundaries = ecosysteme.dim()
+        else:
+            self._boundaries = cageSize
         self._sayThoughts = thinkOutLoud
 
     @property
-    def coords(self):  # lecture des coordonnées
+    def coords(self):
+        """ Lecture des coordonnées
+        :return : le tuple (x, y) des coordonnées de l'animal
+        """
         return self.__coords
 
     @coords.setter
-    def coords(self, val):  # écriture des coordonnées
+    def coords(self, val):
+        """ Écriture des coordonnées
+        :param val: tuple (x, y) des coordonnées à écrire.
+        """
         maxX, maxY = self._boundaries
         x, y = val
         if x < 0:
@@ -85,8 +93,7 @@ class Animal:
         self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
 
     def think(self, val: str):
-        """
-        Pensées de l'insecte. Ne parle que si on lit dans ses pensées.
+        """ Pensées de l'insecte. Ne parle que si on lit dans ses pensées.
         :param val: Contenu de la pensée
         """
         if self._sayThoughts:
@@ -103,14 +110,18 @@ class Animal:
 
 
 class Fourmi(Animal):
-    """
-    Un animal de type fourmi
+    """ Un animal de type fourmi
+    :param x: abscisse initiale
+    :param y: ordonnée initiale
     """
 
     def __init__(self, x, y, **kwargs):
         super().__init__(x, y, 20)
 
     def car(self):
+        """Définit le type de l'animal
+        :return 'F': l'animal est une fourmi, son type est 'F'
+        """
         return 'F'
 
     # def manger(self):
@@ -118,6 +129,8 @@ class Fourmi(Animal):
     #     if self.sante < 4:
     #         self.sante = 20
     def bouger(self):
+        """Déplacement de la fourmi
+        """
         s = self.sante
         x, y = self.coords
         if s >= 3:
@@ -145,7 +158,7 @@ class Cigale(Animal):
     Un animal du type des cigale
     """
     def __init__(self, x, y, **kwargs):
-        super().__init__(x, y, 20)
+        super().__init__(x, y, 20, **kwargs)
         self.sante = 20
 
     def car(self):
