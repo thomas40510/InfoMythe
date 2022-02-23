@@ -50,10 +50,12 @@ class Ecosystem(list):
 
     def vue(self, x, y, r):
         l = []
-        for (a, b) in self.dim:
-            dist = pow(pow(x-a, 2) + pow(y-b, 2), .5)
-            if dist <= r:
-                l.append([a, b])
+        X, Y = self.dim
+        for a in range(X):
+            for b in range(Y):
+                dist = pow(pow(x-a, 2) + pow(y-b, 2), .5)
+                if dist <= r:
+                    l.append([a, b, self.case(a, b)])
         return l
 
     def unTour(self):

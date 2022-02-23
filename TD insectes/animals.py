@@ -95,9 +95,27 @@ class Animal:
         pass
 
     def moveRnd(self):
+        """ Mouvement aléatoire
+        """
         oldXY = self.coords
         while self.x < 0 or self.y < 0:
             self.coords = (oldXY[0] + randint(-3, 4), oldXY[1] + randint(-3, 4))
+
+    def moveNour(self):
+        """ Se déplace vers la nourriture la plus proche
+        """
+        prox = self._ecosys.vue(self.x, self.y, 4)
+        mvX = 0
+        mvY = 0
+        for el in prox:
+            if el[2] == 1:
+                dX = el[0] - self.x
+                dY = el[1] - self.y
+                if dX != 0:
+                    mvX = int(dX/abs(dX))
+                if dY != 0:
+                    mvY = int(dY/abs(dY))
+        self.coords = (self.x + mvX, self.y + mvY)
 
     def think(self, val: str):
         """ Pensées de l'insecte. Ne parle que si on lit dans ses pensées.
@@ -143,21 +161,22 @@ class Fourmi(Animal):
         if s >= 3:
             self.moveRnd()
         else:
-            if x % 5 == 1:
-                newx = x + 1
-            elif x % 5 == 0:
-                newx = x
-            else:
-                newx = x - 1
+            self.moveNour()
+            # if x % 5 == 1:
+            #     newx = x + 1
+            # elif x % 5 == 0:
+            #     newx = x
+            # else:
+            #     newx = x - 1
+            #
+            # if y % 5 == 1:
+            #     newy = y + 1
+            # elif y % 5 == 0:
+            #     newy = y
+            # else:
+            #     newy = y - 1
 
-            if y % 5 == 1:
-                newy = y + 1
-            elif y % 5 == 0:
-                newy = y
-            else:
-                newy = y - 1
-
-            self.coords = (newx, newy)
+            # self.coords = (newx, newy)
 
 
 class Cigale(Animal):
