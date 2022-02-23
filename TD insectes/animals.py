@@ -102,7 +102,7 @@ class Animal:
             self.coords = (oldXY[0] + randint(-3, 4), oldXY[1] + randint(-3, 4))
 
     def moveNour(self):
-        """ Se déplace vers la nourriture la plus proche
+        """ Se déplace vers la nourriture la plus proche dans un rayon de 4
         """
         prox = self._ecosys.vue(self.x, self.y, 4)
         mvX = 0
@@ -190,32 +190,33 @@ class Cigale(Animal):
     def car(self):
         return 'C'
 
-    def bouger(self, alea=False):
-        if alea:
-            self.moveRnd()
-        else:
-            x, y = self.coords
-            n = randint(0, 3)
-            if n == 0:
-                self.think("Je chante")
-            elif n == 1:
-                self.think("Je danse")
-            elif n == 2:
-                if x % 5 == 1:
-                    newx = x + 1
-                elif x % 5 == 0:
-                    newx = x
-                else:
-                    newx = x - 1
+    def bouger(self):
+        x, y = self.coords
+        n = randint(0, 3)
+        if n == 0:
+            self.think("Je chante")
+        elif n == 1:
+            self.think("Je danse")
+        elif n == 2:
+            if self.sante >= 7:
+                self.moveRnd()
+            else:
+                self.moveNour()
+            # if x % 5 == 1:
+            #     newx = x + 1
+            # elif x % 5 == 0:
+            #     newx = x
+            # else:
+            #     newx = x - 1
+            #
+            # if y % 5 == 1:
+            #     newy = y + 1
+            # elif y % 5 == 0:
+            #     newy = y
+            # else:
+            #     newy = y - 1
 
-                if y % 5 == 1:
-                    newy = y + 1
-                elif y % 5 == 0:
-                    newy = y
-                else:
-                    newy = y - 1
-
-                self.coords = (newx, newy)
+            # self.coords = (newx, newy)
 
     # def manger(self):
     #     n = randint(0, 3)
