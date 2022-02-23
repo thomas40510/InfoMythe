@@ -5,8 +5,7 @@ from abc import *
 
 
 class Animal:
-    """
-    Un animal quelconque
+    """ Un animal quelconque
     """
 
     def __init__(self, x, y, capacity=20, ecosysteme=None, thinkOutLoud=False, cageSize=(30, 20)):
@@ -27,10 +26,8 @@ class Animal:
         self._max = capacity
         self._sante = randint(capacity // 2, capacity)
         self.__coords = (x, y)
-        if ecosysteme is not None:
-            self._boundaries = ecosysteme.dim()
-        else:
-            self._boundaries = cageSize
+        self._boundaries = ecosysteme.dim
+        self._ecosys = ecosysteme
         self._sayThoughts = thinkOutLoud
 
     @property
@@ -80,11 +77,13 @@ class Animal:
         return 'A'
 
     def manger(self):
+        """ Pour votre santé, pratiquez une activité physique régulière
+        https://www.mangerbouger.fr/
         """
-        Pour votre santé, pratiquez une activité physique régulière
-        """
+        currX, currY = self.coords
         self.sante -= 1
-        if self.x % 5 == 0 and self.y % 5 == 0:
+        # if self.x % 5 == 0 and self.y % 5 == 0:
+        if self._ecosys.case(currX, currY) == 1:
             self.sante = self._max
             self.think("Je mange...")
         elif self.sante <= 0:
@@ -96,7 +95,9 @@ class Animal:
         pass
 
     def moveRnd(self):
-        self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
+        oldXY = self.coords
+        while self.x < 0 or self.y < 0:
+            self.coords = (oldXY[0] + randint(-3, 4), oldXY[1] + randint(-3, 4))
 
     def think(self, val: str):
         """ Pensées de l'insecte. Ne parle que si on lit dans ses pensées.
@@ -122,7 +123,7 @@ class Fourmi(Animal):
     """
 
     def __init__(self, x, y, **kwargs):
-        super().__init__(x, y, 20)
+        super().__init__(x, y, 20, **kwargs)
 
     def car(self):
         """Définit le type de l'animal
@@ -140,7 +141,7 @@ class Fourmi(Animal):
         s = self.sante
         x, y = self.coords
         if s >= 3:
-            self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
+            self.moveRnd()
         else:
             if x % 5 == 1:
                 newx = x + 1

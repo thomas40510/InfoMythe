@@ -22,9 +22,9 @@ class Ecosystem(list):
         self.__plateau = plateau
         for i in range(nbins):
             if randint(0, 2) == 0:
-                self.append(Fourmi(randint(-10, 42), randint(-10, 42), cageSize=self.dim))
+                self.append(Fourmi(randint(0, width-1), randint(0, height-1), cageSize=self.dim, ecosysteme=self))
             else:
-                self.append(Cigale(randint(-10, 42), randint(-10, 42), cageSize=self.dim))
+                self.append(Cigale(randint(0, width-1), randint(0, height-1), cageSize=self.dim, ecosysteme=self))
 
     @property
     def dim(self):
@@ -32,7 +32,12 @@ class Ecosystem(list):
 
     def genNour(self, nbNour):
         x, y = self.dim
-        plateau = x*[y*[0]]
+        plateau = []
+        for i in range(x):
+            tmp = []
+            for j in range(y):
+                tmp.append(0)
+            plateau.append(tmp)
         for n in range(nbNour):
             (nourX, nourY) = (randint(0, x-1), randint(0, y-1))
             while plateau[nourX][nourY] == 1:
@@ -124,7 +129,8 @@ class Ecosystem(list):
                     res = tmpcar[tmpcoord.index((i, j))]
                 else:
                     res = '.'
-                if i % 5 == 0 and j % 5 == 0:
+                # if i % 5 == 0 and j % 5 == 0:
+                if self.case(i, j) == 1:
                     res = u'\x1b[102;31m' + res + u'\x1b[0m'
                 else:
                     res = u'\x1b[43;31m' + res + u'\x1b[0m'
@@ -142,7 +148,7 @@ class Ecosystem(list):
 if __name__ == '__main__':
     nbins = 60
     nbtour = 50
-    ecosys = Ecosystem(nbins, nbtour, 10, 10)
+    ecosys = Ecosystem(nbins, nbtour, 10, 10, 7)
     print(ecosys)
     ecosys.simuler(showUpdates=True)
     # print(ecosys)
