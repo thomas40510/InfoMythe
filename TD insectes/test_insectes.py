@@ -62,4 +62,10 @@ class TestAnimal(unittest.TestCase):
         eco = Ecosystem(nbr, sim, w, h)
         self.assertTrue(issubclass(type(eco), list))
 
-
+    def test_abstract(self):
+        x = 4
+        y = 2
+        cap = 30
+        cage = (20, 50)
+        anim = Animal(x, y, cap, cageSize=cage)
+        anim.bouger()

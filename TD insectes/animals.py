@@ -1,6 +1,7 @@
 from numpy.random import randint
 import sys
 from ecosys import *
+from abc import *
 
 
 class Animal:
@@ -89,7 +90,12 @@ class Animal:
         elif self.sante <= 0:
             self.think("Je meurs de faim !")
 
+    @abstractmethod
     def bouger(self):
+        # self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
+        pass
+
+    def moveRnd(self):
         self.coords = (self.coords[0] + randint(-3, 4), self.coords[1] + randint(-3, 4))
 
     def think(self, val: str):
@@ -157,36 +163,39 @@ class Cigale(Animal):
     """
     Un animal du type des cigale
     """
-    def __init__(self, x, y, **kwargs):
+    def __init__(self, x, y, cap=20, **kwargs):
         super().__init__(x, y, 20, **kwargs)
-        self.sante = 20
+        self.sante = cap
 
     def car(self):
         return 'C'
 
-    def bouger(self):
-        x, y = self.coords
-        n = randint(0, 3)
-        if n == 0:
-            self.think("Je chante")
-        elif n == 1:
-            self.think("Je danse")
-        elif n == 2:
-            if x % 5 == 1:
-                newx = x + 1
-            elif x % 5 == 0:
-                newx = x
-            else:
-                newx = x - 1
+    def bouger(self, alea=False):
+        if alea:
+            self.moveRnd()
+        else:
+            x, y = self.coords
+            n = randint(0, 3)
+            if n == 0:
+                self.think("Je chante")
+            elif n == 1:
+                self.think("Je danse")
+            elif n == 2:
+                if x % 5 == 1:
+                    newx = x + 1
+                elif x % 5 == 0:
+                    newx = x
+                else:
+                    newx = x - 1
 
-            if y % 5 == 1:
-                newy = y + 1
-            elif y % 5 == 0:
-                newy = y
-            else:
-                newy = y - 1
+                if y % 5 == 1:
+                    newy = y + 1
+                elif y % 5 == 0:
+                    newy = y
+                else:
+                    newy = y - 1
 
-            self.coords = (newx, newy)
+                self.coords = (newx, newy)
 
     # def manger(self):
     #     n = randint(0, 3)
