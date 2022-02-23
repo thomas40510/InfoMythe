@@ -29,18 +29,30 @@ class Ecosystem(list):
         for animal in self:
             animal.bouger()
             animal.manger()
+        self.enterrer()
 
     def simuler(self, showUpdates=False):
         """
         Exécution de la simulation complète
         :param showUpdates: affichage de la grille à chaque étape
         """
-        for t in range(self.nbtour):
+        for t in range(self.nbtour+1):
             self.unTour()
             if showUpdates:
                 print(f"%%% Tour {t} / {self.nbtour} %%%")
                 print(self, end="\r", flush=True)
-                time.sleep(1)
+                #time.sleep(1)
+
+    def enterrer(self):
+        """Identifie les cadavres et les enterre
+        """
+        dead = []
+        for i in range(len(self)-1, -1, -1):
+            if self[i].sante == 0:
+                dead.append(i)
+        for j in dead:
+            self.pop(j)
+        # print(f'//// Removed {len(dead)} cadaver(s) from ecosys ////')
 
     def strStd(self):
         """

@@ -224,4 +224,5 @@ if __name__ == '__main__':
         print(f"### tour {t} ###")
         for ins in ecosys:
             ins.unTour()
+
             print(ins)
