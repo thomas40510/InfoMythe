@@ -11,7 +11,15 @@ class Ecosystem(list):
     Constitue un écosystème et le peuple d'insectes
     """
 
-    def __init__(self, nbins, nbsim, width, height, nbNour=6):
+    def __init__(self, nbins: int, nbsim: int, width: int, height: int, nbNour=6):
+        """ Création de l'écosystème
+
+        :param nbins: nombre d'insectes à créer
+        :param nbsim: nombre de tours de simulation
+        :param width: largeur du plateau
+        :param height: hauteur du plateau
+        :param nbNour: quantité de nourriture à générer
+        """
         super().__init__()
         self.nbtour = nbsim
         self.__xmax = width
@@ -20,17 +28,26 @@ class Ecosystem(list):
             raise ValueError
         plateau = self.genNour(nbNour)
         self.__plateau = plateau
-        for i in range(nbins):
+        for insect in range(nbins):
             if randint(0, 2) == 0:
-                self.append(Fourmi(randint(0, width-1), randint(0, height-1), cageSize=self.dim, ecosysteme=self))
+                self.append(Fourmi(randint(0, width - 1), randint(0, height - 1), cageSize=self.dim, ecosysteme=self))
             else:
-                self.append(Cigale(randint(0, width-1), randint(0, height-1), cageSize=self.dim, ecosysteme=self))
+                self.append(Cigale(randint(0, width - 1), randint(0, height - 1), cageSize=self.dim, ecosysteme=self))
 
     @property
     def dim(self):
+        """Dimensions (xmax, ymax) du plateau de jeu
+
+        :return : longueur et hauteur maximales du plateau
+        """
         return self.__xmax, self.__ymax
 
     def genNour(self, nbNour):
+        """Génère la nourriture aléatoirement sur le plateau de jeu
+
+        :param nbNour: quantité de nourriture à générer
+        :return : plateau de jeu contenant la nourriture
+        """
         x, y = self.dim
         plateau = []
         for i in range(x):
@@ -39,45 +56,60 @@ class Ecosystem(list):
                 tmp.append(0)
             plateau.append(tmp)
         for n in range(nbNour):
-            (nourX, nourY) = (randint(0, x-1), randint(0, y-1))
+            (nourX, nourY) = (randint(0, x - 1), randint(0, y - 1))
             while plateau[nourX][nourY] == 1:
                 (nourX, nourY) = (randint(0, x - 1), randint(0, y - 1))
             plateau[nourX][nourY] = 1
         return plateau
 
-    def case(self, x, y):
+    def case(self, x: int, y: int):
+        """Donne le contenu (nourriture ou non) d'une case donnée
+
+        :param x: abscisse de la case à inspecter
+        :param y: ordonnée de la case à instecter
+        :return : 0 (pas de nourriture) ou 1 (nourriture)
+        """
         return self.__plateau[x][y]
 
-    def vue(self, x, y, r):
+    def vue(self, x: int, y: int, r: int):
+        """Détecte les cases situées à une certaine distance d'une case donnée
+
+        :param x: abscisse de la case d'origine
+        :param y: ordonnée de la case d'origine
+        :param r: distance maximale
+        :return : liste contenant les cases trouvées, et leur contenu (nourriture ou non)
+        """
         l = []
         X, Y = self.dim
         for a in range(X):
             for b in range(Y):
-                dist = pow(pow(x-a, 2) + pow(y-b, 2), .5)
+                dist = pow(pow(x - a, 2) + pow(y - b, 2), .5)
                 if dist <= r:
                     l.append([a, b, self.case(a, b)])
         return l
 
     def unTour(self):
+        """Joue un tour de simulation"""
         for animal in self:
             animal.bouger()
             animal.manger()
         self.enterrer()
 
     def simuler(self, showUpdates=False):
-        """
-        Exécution de la simulation complète
+        """Exécution de la simulation complète
+
         :param showUpdates: affichage de la grille à chaque étape
         """
-        for t in range(self.nbtour + 1):
+        for time in range(self.nbtour + 1):
             self.unTour()
             if showUpdates:
-                print(f"%%% Tour {t} / {self.nbtour} %%%")
+                print(f"%%% Tour {time} / {self.nbtour} %%%")
                 print(self, end="\r", flush=True)
                 # time.sleep(1)
 
     def enterrer(self):
-        """Identifie les cadavres et les enterre
+        """
+        Identifie les cadavres et les enterre
         """
         dead = []
         for i in range(len(self) - 1, -1, -1):
@@ -88,8 +120,9 @@ class Ecosystem(list):
         # print(f'//// Removed {len(dead)} cadaver(s) from ecosys ////')
 
     def strStd(self):
-        """
-        Affichage de la grille de manière standard (sans couleurs) dans la console
+        """Affichage de la grille de manière standard (sans couleurs) dans la console
+
+        :return : la grille textuelle
         """
         x, y = self.dim
         tmpcoord = []
@@ -114,8 +147,9 @@ class Ecosystem(list):
         return R
 
     def strColor(self):
-        """
-        Affichage de la grille dans la console, avec des couleurs
+        """Affichage de la grille dans la console, avec des couleurs
+
+        :return : la grille en couleur
         """
         x, y = self.dim
         tmpcoord = []
@@ -141,8 +175,9 @@ class Ecosystem(list):
         return R
 
     def __str__(self):
-        """
-        Affiche la grille, avec ou sans couleurs en fonction de l'OS
+        """Affiche la grille, avec ou sans couleurs en fonction de l'OS
+
+        :return: un plateau coloré sous Linux et MacOS, un plateau textuel sinon
         """
         return self.strColor() if platform.system() in ('Darwin', 'Linux') else self.strStd()
 

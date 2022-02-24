@@ -5,23 +5,20 @@ from abc import *
 
 
 class Animal:
-    """ Un animal quelconque
+    """
+    Un animal quelconque
     """
 
-    def __init__(self, x, y, capacity=20, ecosysteme=None, thinkOutLoud=False, cageSize=(30, 20)):
-        """
-        :type x: int
-        :type y: int
-        :type capacity: int
+    def __init__(self, x: int, y: int, capacity=20, ecosysteme=None, thinkOutLoud=False, cageSize=(30, 20)):
+        """Naissance de l'animal
+
         :type ecosysteme: Ecosystem
-        :type cageSize: (int, int)
-        :type thinkOutLoud: bool
         :param x: abscisse de départ
         :param y: ordonnée de départ
         :param capacity: santé maximale
         :param ecosysteme: écosystème de rattachement de l'insecte
         :param thinkOutLoud: L'insecte dit ce qu'il pense
-        :param cageSize: Taille de la cage (défini par l'écosystème)
+        :param cageSize: Taille de la cage (deprecated, gardé pour compatibilité)
         """
         self._max = capacity
         self._sante = randint(capacity // 2, capacity)
@@ -40,6 +37,7 @@ class Animal:
     @coords.setter
     def coords(self, val):
         """ Écriture des coordonnées
+
         :param val: tuple (x, y) des coordonnées à écrire.
         """
         maxX, maxY = self._boundaries
@@ -57,19 +55,26 @@ class Animal:
     pass
 
     @property
-    def x(self):  # lecture de l'abscisse
+    def x(self):
+        """Lecture de l'abscisse"""
         return self.__coords[0]
 
     @property
-    def y(self):  # lecture de l'ordonnée
+    def y(self):
+        """Lecture de l'ordonnée"""
         return self.__coords[1]
 
     @property
-    def sante(self):  # lecture de la santé
+    def sante(self):
+        """Lecture de la santé de l'animal"""
         return self._sante
 
     @sante.setter
     def sante(self, value):
+        """Modification de la santé
+
+        :param value: nouvelle valeur de santé de l'animal
+        """
         self._sante = value
         pass
 
@@ -77,7 +82,8 @@ class Animal:
         return 'A'
 
     def manger(self):
-        """ Pour votre santé, pratiquez une activité physique régulière
+        """Pour votre santé, pratiquez une activité physique régulière
+
         https://www.mangerbouger.fr/
         """
         currX, currY = self.coords
@@ -95,15 +101,13 @@ class Animal:
         pass
 
     def moveRnd(self):
-        """ Mouvement aléatoire
-        """
+        """Mouvement aléatoire"""
         oldXY = self.coords
         while self.x < 0 or self.y < 0:
             self.coords = (oldXY[0] + randint(-3, 4), oldXY[1] + randint(-3, 4))
 
     def moveNour(self):
-        """ Se déplace vers la nourriture la plus proche dans un rayon de 4
-        """
+        """Se déplace vers la nourriture la plus proche dans un rayon de 4"""
         prox = self._ecosys.vue(self.x, self.y, 4)
         mvX = 0
         mvY = 0
@@ -119,6 +123,7 @@ class Animal:
 
     def think(self, val: str):
         """ Pensées de l'insecte. Ne parle que si on lit dans ses pensées.
+
         :param val: Contenu de la pensée
         """
         if self._sayThoughts:
@@ -130,34 +135,38 @@ class Animal:
         return f"{self.car()} : pos {self.coords} state {self._sante} / {self._max}"
 
     def unTour(self):
+        """Joue un tour de simulation"""
         self.manger()
         self.bouger()
 
 
 class Fourmi(Animal):
-    """ Un animal de type fourmi
-    :param x: abscisse initiale
-    :param y: ordonnée initiale
+    """
+    Un animal de type fourmi
     """
 
     def __init__(self, x, y, **kwargs):
+        """Naissance d'une fourmi
+
+        :param x: abscisse de départ
+        :param y: ordonnée de départ
+        """
         super().__init__(x, y, 20, **kwargs)
 
     def car(self):
         """Définit le type de l'animal
-        :return 'F': l'animal est une fourmi, son type est 'F'
+
+        :return : l'animal est une fourmi, son type est 'F'
         """
         return 'F'
 
-    # def manger(self):
-    #     self.sante -= 1
-    #     if self.sante < 4:
-    #         self.sante = 20
     def bouger(self):
-        """Déplacement de la fourmi
+        """Déplacement de la fourmi.
+
+        Si elle a faim, elle se rapproche de la nourriture. Sinon, elle bouge aléatoirement.
         """
         s = self.sante
-        x, y = self.coords
+        # x, y = self.coords
         if s >= 3:
             self.moveRnd()
         else:
@@ -181,16 +190,31 @@ class Fourmi(Animal):
 
 class Cigale(Animal):
     """
-    Un animal du type des cigale
+    Un animal du type des cigales
     """
     def __init__(self, x, y, cap=20, **kwargs):
+        """Naissance de la cigale
+
+        :param x: abscisse d'origine
+        :param y: ordonnée d'origine
+        :param cap: santé maximale
+        """
         super().__init__(x, y, 20, **kwargs)
         self.sante = cap
 
     def car(self):
+        """Définit le type de l'insecte
+
+        :return : c'est une cigale, son type est 'C'
+        """
         return 'C'
 
     def bouger(self):
+        """Déplacement de la cigale.
+
+        Une chance sur trois de se déplacer. Sinon, soit elle chante soit elle danse.
+        Si elle se déplace, elle se rapproche de la nourriture si elle a faim. Sinon, déplacement aléatoire.
+        """
         x, y = self.coords
         n = randint(0, 3)
         if n == 0:
@@ -217,19 +241,6 @@ class Cigale(Animal):
             #     newy = y - 1
 
             # self.coords = (newx, newy)
-
-    # def manger(self):
-    #     n = randint(0, 3)
-    #     self.sante -= 1
-    #     if self.sante > 0:
-    #         if self.sante <= 0:
-    #             print("Je meurs de faim !")
-    #         if n == 0:
-    #             print("Je chante")
-    #         elif n == 1:
-    #             print("Je danse")
-    #         elif n == 2:
-    #             self.sante = 20
 
 
 if __name__ == '__main__':
