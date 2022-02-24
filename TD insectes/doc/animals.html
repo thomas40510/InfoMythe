@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>animals</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/thomasprevost/PycharmProjects/InfoMythe/TD%20insectes/animals.py">/Users/thomasprevost/PycharmProjects/InfoMythe/TD insectes/animals.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href="..">index</a><br><a href="file:/Users/thomasprevost/PycharmProjects/InfoMythe/TD%20insectes/animals.py">/Users/thomasprevost/PycharmProjects/InfoMythe/TD insectes/animals.py</a></font></td></tr></table>
     <p></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -48,23 +48,20 @@
 <font color="#000000" face="helvetica, arial"><a name="Animal">class <strong>Animal</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#Animal">Animal</a>(x,&nbsp;y,&nbsp;capacity=20,&nbsp;ecosysteme=None,&nbsp;thinkOutLoud=False,&nbsp;cageSize=(30,&nbsp;20))<br>
+<td colspan=2><tt><a href="#Animal">Animal</a>(x:&nbsp;int,&nbsp;y:&nbsp;int,&nbsp;capacity=20,&nbsp;ecosysteme=None,&nbsp;thinkOutLoud=False,&nbsp;cageSize=(30,&nbsp;20))<br>
 &nbsp;<br>
 Un&nbsp;animal&nbsp;quelconque<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="Animal-__init__"><strong>__init__</strong></a>(self, x, y, capacity=20, ecosysteme=None, thinkOutLoud=False, cageSize=(30, 20))</dt><dd><tt>:type&nbsp;x:&nbsp;int<br>
-:type&nbsp;y:&nbsp;int<br>
-:type&nbsp;capacity:&nbsp;int<br>
+<dl><dt><a name="Animal-__init__"><strong>__init__</strong></a>(self, x: int, y: int, capacity=20, ecosysteme=None, thinkOutLoud=False, cageSize=(30, 20))</dt><dd><tt>Naissance&nbsp;de&nbsp;l'animal<br>
+&nbsp;<br>
 :type&nbsp;ecosysteme:&nbsp;Ecosystem<br>
-:type&nbsp;cageSize:&nbsp;(int,&nbsp;int)<br>
-:type&nbsp;thinkOutLoud:&nbsp;bool<br>
 :param&nbsp;x:&nbsp;abscisse&nbsp;de&nbsp;départ<br>
 :param&nbsp;y:&nbsp;ordonnée&nbsp;de&nbsp;départ<br>
 :param&nbsp;capacity:&nbsp;santé&nbsp;maximale<br>
 :param&nbsp;ecosysteme:&nbsp;écosystème&nbsp;de&nbsp;rattachement&nbsp;de&nbsp;l'insecte<br>
 :param&nbsp;thinkOutLoud:&nbsp;L'insecte&nbsp;dit&nbsp;ce&nbsp;qu'il&nbsp;pense<br>
-:param&nbsp;cageSize:&nbsp;Taille&nbsp;de&nbsp;la&nbsp;cage&nbsp;(défini&nbsp;par&nbsp;l'écosystème)</tt></dd></dl>
+:param&nbsp;cageSize:&nbsp;Taille&nbsp;de&nbsp;la&nbsp;cage&nbsp;(deprecated,&nbsp;gardé&nbsp;pour&nbsp;compatibilité)</tt></dd></dl>
 
 <dl><dt><a name="Animal-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
 
@@ -72,20 +69,27 @@ Un&nbsp;animal&nbsp;quelconque<br>&nbsp;</tt></td></tr>
 
 <dl><dt><a name="Animal-car"><strong>car</strong></a>(self)</dt></dl>
 
-<dl><dt><a name="Animal-manger"><strong>manger</strong></a>(self)</dt><dd><tt>Pour&nbsp;votre&nbsp;santé,&nbsp;pratiquez&nbsp;une&nbsp;activité&nbsp;physique&nbsp;régulière</tt></dd></dl>
+<dl><dt><a name="Animal-manger"><strong>manger</strong></a>(self)</dt><dd><tt>Pour&nbsp;votre&nbsp;santé,&nbsp;pratiquez&nbsp;une&nbsp;activité&nbsp;physique&nbsp;régulière<br>
+&nbsp;<br>
+https://www.mangerbouger.fr/</tt></dd></dl>
 
-<dl><dt><a name="Animal-moveRnd"><strong>moveRnd</strong></a>(self)</dt></dl>
+<dl><dt><a name="Animal-moveNour"><strong>moveNour</strong></a>(self)</dt><dd><tt>Se&nbsp;déplace&nbsp;vers&nbsp;la&nbsp;nourriture&nbsp;la&nbsp;plus&nbsp;proche&nbsp;dans&nbsp;un&nbsp;rayon&nbsp;de&nbsp;4</tt></dd></dl>
+
+<dl><dt><a name="Animal-moveRnd"><strong>moveRnd</strong></a>(self)</dt><dd><tt>Mouvement&nbsp;aléatoire</tt></dd></dl>
 
 <dl><dt><a name="Animal-think"><strong>think</strong></a>(self, val: str)</dt><dd><tt>Pensées&nbsp;de&nbsp;l'insecte.&nbsp;Ne&nbsp;parle&nbsp;que&nbsp;si&nbsp;on&nbsp;lit&nbsp;dans&nbsp;ses&nbsp;pensées.<br>
+&nbsp;<br>
 :param&nbsp;val:&nbsp;Contenu&nbsp;de&nbsp;la&nbsp;pensée</tt></dd></dl>
 
-<dl><dt><a name="Animal-unTour"><strong>unTour</strong></a>(self)</dt></dl>
+<dl><dt><a name="Animal-unTour"><strong>unTour</strong></a>(self)</dt><dd><tt>Joue&nbsp;un&nbsp;tour&nbsp;de&nbsp;simulation</tt></dd></dl>
 
 <hr>
 Readonly properties defined here:<br>
 <dl><dt><strong>x</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;l'abscisse</tt></dd>
 </dl>
 <dl><dt><strong>y</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;l'ordonnée</tt></dd>
 </dl>
 <hr>
 Data descriptors defined here:<br>
@@ -100,6 +104,7 @@ Data descriptors defined here:<br>
 :return&nbsp;:&nbsp;le&nbsp;tuple&nbsp;(x,&nbsp;y)&nbsp;des&nbsp;coordonnées&nbsp;de&nbsp;l'animal</tt></dd>
 </dl>
 <dl><dt><strong>sante</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;la&nbsp;santé&nbsp;de&nbsp;l'animal</tt></dd>
 </dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -110,7 +115,7 @@ Data descriptors defined here:<br>
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#Cigale">Cigale</a>(x,&nbsp;y,&nbsp;cap=20,&nbsp;**kwargs)<br>
 &nbsp;<br>
-Un&nbsp;animal&nbsp;du&nbsp;type&nbsp;des&nbsp;cigale<br>&nbsp;</tt></td></tr>
+Un&nbsp;animal&nbsp;du&nbsp;type&nbsp;des&nbsp;cigales<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="animals.html#Cigale">Cigale</a></dd>
@@ -119,41 +124,46 @@ Un&nbsp;animal&nbsp;du&nbsp;type&nbsp;des&nbsp;cigale<br>&nbsp;</tt></td></tr>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Cigale-__init__"><strong>__init__</strong></a>(self, x, y, cap=20, **kwargs)</dt><dd><tt>:type&nbsp;x:&nbsp;int<br>
-:type&nbsp;y:&nbsp;int<br>
-:type&nbsp;capacity:&nbsp;int<br>
-:type&nbsp;ecosysteme:&nbsp;Ecosystem<br>
-:type&nbsp;cageSize:&nbsp;(int,&nbsp;int)<br>
-:type&nbsp;thinkOutLoud:&nbsp;bool<br>
-:param&nbsp;x:&nbsp;abscisse&nbsp;de&nbsp;départ<br>
-:param&nbsp;y:&nbsp;ordonnée&nbsp;de&nbsp;départ<br>
-:param&nbsp;capacity:&nbsp;santé&nbsp;maximale<br>
-:param&nbsp;ecosysteme:&nbsp;écosystème&nbsp;de&nbsp;rattachement&nbsp;de&nbsp;l'insecte<br>
-:param&nbsp;thinkOutLoud:&nbsp;L'insecte&nbsp;dit&nbsp;ce&nbsp;qu'il&nbsp;pense<br>
-:param&nbsp;cageSize:&nbsp;Taille&nbsp;de&nbsp;la&nbsp;cage&nbsp;(défini&nbsp;par&nbsp;l'écosystème)</tt></dd></dl>
+<dl><dt><a name="Cigale-__init__"><strong>__init__</strong></a>(self, x, y, cap=20, **kwargs)</dt><dd><tt>Naissance&nbsp;de&nbsp;la&nbsp;cigale<br>
+&nbsp;<br>
+:param&nbsp;x:&nbsp;abscisse&nbsp;d'origine<br>
+:param&nbsp;y:&nbsp;ordonnée&nbsp;d'origine<br>
+:param&nbsp;cap:&nbsp;santé&nbsp;maximale</tt></dd></dl>
 
-<dl><dt><a name="Cigale-bouger"><strong>bouger</strong></a>(self, alea=False)</dt></dl>
+<dl><dt><a name="Cigale-bouger"><strong>bouger</strong></a>(self)</dt><dd><tt>Déplacement&nbsp;de&nbsp;la&nbsp;cigale.<br>
+&nbsp;<br>
+Une&nbsp;chance&nbsp;sur&nbsp;trois&nbsp;de&nbsp;se&nbsp;déplacer.&nbsp;Sinon,&nbsp;soit&nbsp;elle&nbsp;chante&nbsp;soit&nbsp;elle&nbsp;danse.<br>
+Si&nbsp;elle&nbsp;se&nbsp;déplace,&nbsp;elle&nbsp;se&nbsp;rapproche&nbsp;de&nbsp;la&nbsp;nourriture&nbsp;si&nbsp;elle&nbsp;a&nbsp;faim.&nbsp;Sinon,&nbsp;déplacement&nbsp;aléatoire.</tt></dd></dl>
 
-<dl><dt><a name="Cigale-car"><strong>car</strong></a>(self)</dt></dl>
+<dl><dt><a name="Cigale-car"><strong>car</strong></a>(self)</dt><dd><tt>Définit&nbsp;le&nbsp;type&nbsp;de&nbsp;l'insecte<br>
+&nbsp;<br>
+:return&nbsp;:&nbsp;c'est&nbsp;une&nbsp;cigale,&nbsp;son&nbsp;type&nbsp;est&nbsp;'C'</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="animals.html#Animal">Animal</a>:<br>
 <dl><dt><a name="Cigale-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
 
-<dl><dt><a name="Cigale-manger"><strong>manger</strong></a>(self)</dt><dd><tt>Pour&nbsp;votre&nbsp;santé,&nbsp;pratiquez&nbsp;une&nbsp;activité&nbsp;physique&nbsp;régulière</tt></dd></dl>
+<dl><dt><a name="Cigale-manger"><strong>manger</strong></a>(self)</dt><dd><tt>Pour&nbsp;votre&nbsp;santé,&nbsp;pratiquez&nbsp;une&nbsp;activité&nbsp;physique&nbsp;régulière<br>
+&nbsp;<br>
+https://www.mangerbouger.fr/</tt></dd></dl>
 
-<dl><dt><a name="Cigale-moveRnd"><strong>moveRnd</strong></a>(self)</dt></dl>
+<dl><dt><a name="Cigale-moveNour"><strong>moveNour</strong></a>(self)</dt><dd><tt>Se&nbsp;déplace&nbsp;vers&nbsp;la&nbsp;nourriture&nbsp;la&nbsp;plus&nbsp;proche&nbsp;dans&nbsp;un&nbsp;rayon&nbsp;de&nbsp;4</tt></dd></dl>
+
+<dl><dt><a name="Cigale-moveRnd"><strong>moveRnd</strong></a>(self)</dt><dd><tt>Mouvement&nbsp;aléatoire</tt></dd></dl>
 
 <dl><dt><a name="Cigale-think"><strong>think</strong></a>(self, val: str)</dt><dd><tt>Pensées&nbsp;de&nbsp;l'insecte.&nbsp;Ne&nbsp;parle&nbsp;que&nbsp;si&nbsp;on&nbsp;lit&nbsp;dans&nbsp;ses&nbsp;pensées.<br>
+&nbsp;<br>
 :param&nbsp;val:&nbsp;Contenu&nbsp;de&nbsp;la&nbsp;pensée</tt></dd></dl>
 
-<dl><dt><a name="Cigale-unTour"><strong>unTour</strong></a>(self)</dt></dl>
+<dl><dt><a name="Cigale-unTour"><strong>unTour</strong></a>(self)</dt><dd><tt>Joue&nbsp;un&nbsp;tour&nbsp;de&nbsp;simulation</tt></dd></dl>
 
 <hr>
 Readonly properties inherited from <a href="animals.html#Animal">Animal</a>:<br>
 <dl><dt><strong>x</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;l'abscisse</tt></dd>
 </dl>
 <dl><dt><strong>y</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;l'ordonnée</tt></dd>
 </dl>
 <hr>
 Data descriptors inherited from <a href="animals.html#Animal">Animal</a>:<br>
@@ -168,6 +178,7 @@ Data descriptors inherited from <a href="animals.html#Animal">Animal</a>:<br>
 :return&nbsp;:&nbsp;le&nbsp;tuple&nbsp;(x,&nbsp;y)&nbsp;des&nbsp;coordonnées&nbsp;de&nbsp;l'animal</tt></dd>
 </dl>
 <dl><dt><strong>sante</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;la&nbsp;santé&nbsp;de&nbsp;l'animal</tt></dd>
 </dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -178,9 +189,7 @@ Data descriptors inherited from <a href="animals.html#Animal">Animal</a>:<br>
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#Fourmi">Fourmi</a>(x,&nbsp;y,&nbsp;**kwargs)<br>
 &nbsp;<br>
-Un&nbsp;animal&nbsp;de&nbsp;type&nbsp;fourmi<br>
-:param&nbsp;x:&nbsp;abscisse&nbsp;initiale<br>
-:param&nbsp;y:&nbsp;ordonnée&nbsp;initiale<br>&nbsp;</tt></td></tr>
+Un&nbsp;animal&nbsp;de&nbsp;type&nbsp;fourmi<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="animals.html#Fourmi">Fourmi</a></dd>
@@ -189,42 +198,44 @@ Un&nbsp;animal&nbsp;de&nbsp;type&nbsp;fourmi<br>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Fourmi-__init__"><strong>__init__</strong></a>(self, x, y, **kwargs)</dt><dd><tt>:type&nbsp;x:&nbsp;int<br>
-:type&nbsp;y:&nbsp;int<br>
-:type&nbsp;capacity:&nbsp;int<br>
-:type&nbsp;ecosysteme:&nbsp;Ecosystem<br>
-:type&nbsp;cageSize:&nbsp;(int,&nbsp;int)<br>
-:type&nbsp;thinkOutLoud:&nbsp;bool<br>
+<dl><dt><a name="Fourmi-__init__"><strong>__init__</strong></a>(self, x, y, **kwargs)</dt><dd><tt>Naissance&nbsp;d'une&nbsp;fourmi<br>
+&nbsp;<br>
 :param&nbsp;x:&nbsp;abscisse&nbsp;de&nbsp;départ<br>
-:param&nbsp;y:&nbsp;ordonnée&nbsp;de&nbsp;départ<br>
-:param&nbsp;capacity:&nbsp;santé&nbsp;maximale<br>
-:param&nbsp;ecosysteme:&nbsp;écosystème&nbsp;de&nbsp;rattachement&nbsp;de&nbsp;l'insecte<br>
-:param&nbsp;thinkOutLoud:&nbsp;L'insecte&nbsp;dit&nbsp;ce&nbsp;qu'il&nbsp;pense<br>
-:param&nbsp;cageSize:&nbsp;Taille&nbsp;de&nbsp;la&nbsp;cage&nbsp;(défini&nbsp;par&nbsp;l'écosystème)</tt></dd></dl>
+:param&nbsp;y:&nbsp;ordonnée&nbsp;de&nbsp;départ</tt></dd></dl>
 
-<dl><dt><a name="Fourmi-bouger"><strong>bouger</strong></a>(self)</dt><dd><tt>Déplacement&nbsp;de&nbsp;la&nbsp;fourmi</tt></dd></dl>
+<dl><dt><a name="Fourmi-bouger"><strong>bouger</strong></a>(self)</dt><dd><tt>Déplacement&nbsp;de&nbsp;la&nbsp;fourmi.<br>
+&nbsp;<br>
+Si&nbsp;elle&nbsp;a&nbsp;faim,&nbsp;elle&nbsp;se&nbsp;rapproche&nbsp;de&nbsp;la&nbsp;nourriture.&nbsp;Sinon,&nbsp;elle&nbsp;bouge&nbsp;aléatoirement.</tt></dd></dl>
 
 <dl><dt><a name="Fourmi-car"><strong>car</strong></a>(self)</dt><dd><tt>Définit&nbsp;le&nbsp;type&nbsp;de&nbsp;l'animal<br>
-:return&nbsp;'F':&nbsp;l'animal&nbsp;est&nbsp;une&nbsp;fourmi,&nbsp;son&nbsp;type&nbsp;est&nbsp;'F'</tt></dd></dl>
+&nbsp;<br>
+:return&nbsp;:&nbsp;l'animal&nbsp;est&nbsp;une&nbsp;fourmi,&nbsp;son&nbsp;type&nbsp;est&nbsp;'F'</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="animals.html#Animal">Animal</a>:<br>
 <dl><dt><a name="Fourmi-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
 
-<dl><dt><a name="Fourmi-manger"><strong>manger</strong></a>(self)</dt><dd><tt>Pour&nbsp;votre&nbsp;santé,&nbsp;pratiquez&nbsp;une&nbsp;activité&nbsp;physique&nbsp;régulière</tt></dd></dl>
+<dl><dt><a name="Fourmi-manger"><strong>manger</strong></a>(self)</dt><dd><tt>Pour&nbsp;votre&nbsp;santé,&nbsp;pratiquez&nbsp;une&nbsp;activité&nbsp;physique&nbsp;régulière<br>
+&nbsp;<br>
+https://www.mangerbouger.fr/</tt></dd></dl>
 
-<dl><dt><a name="Fourmi-moveRnd"><strong>moveRnd</strong></a>(self)</dt></dl>
+<dl><dt><a name="Fourmi-moveNour"><strong>moveNour</strong></a>(self)</dt><dd><tt>Se&nbsp;déplace&nbsp;vers&nbsp;la&nbsp;nourriture&nbsp;la&nbsp;plus&nbsp;proche&nbsp;dans&nbsp;un&nbsp;rayon&nbsp;de&nbsp;4</tt></dd></dl>
+
+<dl><dt><a name="Fourmi-moveRnd"><strong>moveRnd</strong></a>(self)</dt><dd><tt>Mouvement&nbsp;aléatoire</tt></dd></dl>
 
 <dl><dt><a name="Fourmi-think"><strong>think</strong></a>(self, val: str)</dt><dd><tt>Pensées&nbsp;de&nbsp;l'insecte.&nbsp;Ne&nbsp;parle&nbsp;que&nbsp;si&nbsp;on&nbsp;lit&nbsp;dans&nbsp;ses&nbsp;pensées.<br>
+&nbsp;<br>
 :param&nbsp;val:&nbsp;Contenu&nbsp;de&nbsp;la&nbsp;pensée</tt></dd></dl>
 
-<dl><dt><a name="Fourmi-unTour"><strong>unTour</strong></a>(self)</dt></dl>
+<dl><dt><a name="Fourmi-unTour"><strong>unTour</strong></a>(self)</dt><dd><tt>Joue&nbsp;un&nbsp;tour&nbsp;de&nbsp;simulation</tt></dd></dl>
 
 <hr>
 Readonly properties inherited from <a href="animals.html#Animal">Animal</a>:<br>
 <dl><dt><strong>x</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;l'abscisse</tt></dd>
 </dl>
 <dl><dt><strong>y</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;l'ordonnée</tt></dd>
 </dl>
 <hr>
 Data descriptors inherited from <a href="animals.html#Animal">Animal</a>:<br>
@@ -239,6 +250,7 @@ Data descriptors inherited from <a href="animals.html#Animal">Animal</a>:<br>
 :return&nbsp;:&nbsp;le&nbsp;tuple&nbsp;(x,&nbsp;y)&nbsp;des&nbsp;coordonnées&nbsp;de&nbsp;l'animal</tt></dd>
 </dl>
 <dl><dt><strong>sante</strong></dt>
+<dd><tt>Lecture&nbsp;de&nbsp;la&nbsp;santé&nbsp;de&nbsp;l'animal</tt></dd>
 </dl>
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
