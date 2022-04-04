@@ -17,12 +17,12 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui.btn_simu.clicked.connect(self.full_simu)
 
         # draws background of UI sim board
-        # pixmap = QtGui.QPixmap('img/bg.png')
+        pixmap = QtGui.QPixmap('img/bg.png')
         pal = QtGui.QPalette()
-        # pal.setBrush(QtGui.QPalette.Background, QtGui.QBrush(pixmap))
+        pal.setBrush(QtGui.QPalette.Background, QtGui.QBrush(pixmap))
 
         self.ui.wdgt_main.stackUnder(self)
-        # self.ui.wdgt_main.setAutoFillBackground(True)
+        self.ui.wdgt_main.setAutoFillBackground(True)
         self.ui.wdgt_main.setPalette(pal)
 
         self.ui.wdgt_main.paintEvent = self.drawEcosys
@@ -35,14 +35,14 @@ class MyApp(QtWidgets.QMainWindow):
 
     def paintEvent(self, e):
         qp = self.painter
-        # qp = QtGui.QPainter()
-        qp.begin(self)
+        qp = QtGui.QPainter()
+        qp.begin(self.ui.wdgt_main)
         self.drawEcosys(qp)
         qp.end()
 
     def drawEcosys(self, qp):
         qp = self.painter
-        qp.begin(self)
+        qp.begin(self.ui.wdgt_main)
         for ins in self._ecosystem:
             if ins.car() == 'F':
                 qp.setPen(QtGui.QColor('green'))
@@ -51,22 +51,23 @@ class MyApp(QtWidgets.QMainWindow):
                 qp.setPen(QtGui.QColor('red'))
                 qp.drawEllipse(ins.x, ins.y, 10, 5)
         qp.end()
+        self.ui.wdgt_main.update()
 
     def step_simu(self):
         if self._ecosystem.nbtour > 0:
             self._ecosystem.unTour()
-            print(self._ecosystem)
+            # print(self._ecosystem)
             self._ecosystem.nbtour -= 1
             print(f'[i]: current step is {self._ecosystem.nbtour}')
         else:
             print('[i]: No steps remaining in current simulation.')
         self.drawEcosys(self.painter)
+        self.ui.btn_step.setText(f"Step ({self._ecosystem.nbtour})")
         self.ui.wdgt_main.update()
 
     def gen_simu(self):
         w, h = self.ui.wdgt_main.width(), self.ui.wdgt_main.height()
-        # eco = Ecosystem(nbins=60, nbsim=150, width=w, height=h, nbNour=w//20)
-        eco = Ecosystem(nbins=10, nbsim=150, width=20, height=10, nbNour=5)
+        eco = Ecosystem(nbins=60, nbsim=150, width=w, height=h, nbNour=w//20)
         self._ecosystem = eco
         self.drawEcosys(self.painter)
         self.ui.wdgt_main.update()
