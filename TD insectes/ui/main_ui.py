@@ -15,6 +15,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui.btn_step.clicked.connect(self.step_simu)
         self.ui.btn_gen.clicked.connect(self.gen_simu)
         self.ui.btn_simu.clicked.connect(self.full_simu)
+        self.timer = QtCore.QTimer()
 
         # draws background of UI sim board
         pixmap = QtGui.QPixmap('img/bg.png')
@@ -61,8 +62,10 @@ class MyApp(QtWidgets.QMainWindow):
             # print(self._ecosystem)
             self._ecosystem.nbtour -= 1
             print(f'[i]: current step is {self._ecosystem.nbtour}')
+            print(f'current timer is {self.timer.isActive()}')
         else:
             print('[i]: No steps remaining in current simulation.')
+            self.timer.stop()
         self.drawEcosys(self.painter)
         self.ui.btn_step.setText(f"Step ({self._ecosystem.nbtour})")
         self.ui.wdgt_main.update()
@@ -75,6 +78,9 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui.wdgt_main.update()
 
     def full_simu(self):
+        self.timer.startTimer(300)
+        self.timer.timeout.connect(self.step_simu)
+
         while self._ecosystem.nbtour > 0:
             self.step_simu()
 
