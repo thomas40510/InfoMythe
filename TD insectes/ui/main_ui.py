@@ -46,10 +46,12 @@ class MyApp(QtWidgets.QMainWindow):
         for ins in self._ecosystem:
             if ins.car() == 'F':
                 qp.setPen(QtGui.QColor('green'))
-                qp.drawRect(ins.x, ins.y, 10, 5)
+                qp.drawText(ins.x, ins.y, "🐜")
+                # qp.drawRect(ins.x, ins.y, 10, 5)
             else:
                 qp.setPen(QtGui.QColor('red'))
-                qp.drawEllipse(ins.x, ins.y, 10, 5)
+                qp.drawText(ins.x, ins.y, "🦗")
+                # qp.drawEllipse(ins.x, ins.y, 10, 5)
         qp.end()
         self.ui.wdgt_main.update()
 
