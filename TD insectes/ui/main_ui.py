@@ -18,7 +18,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.timer = QtCore.QTimer()
 
         # draws background of UI sim board
-        pixmap = QtGui.QPixmap('img/bg.png')
+        pixmap = QtGui.QPixmap('img/bg2.png')
         pal = QtGui.QPalette()
         pal.setBrush(QtGui.QPalette.Background, QtGui.QBrush(pixmap))
 
